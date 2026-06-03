@@ -1,5 +1,7 @@
 using System;
 using ListaDeComprasWeb.WebApplication.Compartilhado.Infra.Arquivos;
+using ListaDeComprasWeb.WebApplication.ModuloCategoria.Dominio;
+using ListaDeComprasWeb.WebApplication.ModuloCategoria.Infra;
 
 namespace ListaDeComprasWeb.WebApplication.Compartilhado.Infra;
 
@@ -15,6 +17,8 @@ public static class InjecaoDependencia
 
             return contextoJson;
         });
+
+        services.AddScoped<IRepositorioCategoria, RepositorioCategoriaEmArquivo>();
 
     }
 }
