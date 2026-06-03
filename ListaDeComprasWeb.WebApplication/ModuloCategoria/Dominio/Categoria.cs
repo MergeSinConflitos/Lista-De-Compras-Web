@@ -35,9 +35,9 @@ public class Categoria : EntidadeBase<Categoria>
         {
             erros.Add("O campo \"Nome\" é obrigatório");
         }
-        else if (Nome.Length < 2 || Nome.Length > 100)
+        else if (Nome.Length < 2 || Nome.Length > 50)
         {
-            erros.Add("O nome deve conter entre 2 e 100 caracteres");
+            erros.Add("O nome deve conter entre 2 e 50 caracteres");
         }
 
         if (string.IsNullOrWhiteSpace(Cor))
