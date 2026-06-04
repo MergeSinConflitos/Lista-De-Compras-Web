@@ -1,4 +1,5 @@
 using System;
+using ListaDeComprasWeb.WebApplication.ModuloCategoria.Apresentacao;
 
 namespace ListaDeComprasWeb.WebApplication.Compartilhado.Apresentacao;
 
@@ -20,6 +21,7 @@ public static class InjecaoDependencia
 
         services.AddAutoMapper(config =>
         {
+            config.AddProfile<CategoriaProfile>();
 
         });
     }

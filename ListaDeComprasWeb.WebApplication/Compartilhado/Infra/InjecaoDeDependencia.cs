@@ -20,5 +20,6 @@ public static class InjecaoDependencia
 
         services.AddScoped<IRepositorioCategoria, RepositorioCategoriaEmArquivo>();
 
+
     }
 }
