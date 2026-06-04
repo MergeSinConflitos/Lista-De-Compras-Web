@@ -10,4 +10,9 @@ public static class TempDataExtensions
     {
         tempData["MensagemErro"] = result.Errors.First().Message;
     }
+
+    public static void AddSuccessMessage(this ITempDataDictionary tempData, ResultBase result)
+    {
+        tempData["MensagemSucesso"] = result.Successes.First().Message;
+    }
 }

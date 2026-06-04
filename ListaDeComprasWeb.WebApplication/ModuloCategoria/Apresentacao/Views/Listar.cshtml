@@ -1,0 +1,92 @@
+﻿@using ListaDeComprasWeb.WebApplication.ModuloCategoria.Apresentacao
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Listagem de Categorias";
+}
+
+@model List<ListarCategoriasViewModel>;
+
+<a class="btn btn-outline-primary rounded-pill px-4 mb-3" asp-action="Cadastrar">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg me-1"
+         viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+    </svg>
+    Cadastrar Nova
+</a>
+
+@if (TempData["MensagemErro"] is string mensagemErro)
+{
+    <div class="alert alert-danger border-start border-danger border-4 rounded-3" role="alert">
+        @mensagemErro
+    </div>
+}
+
+@if (TempData["MensagemSucesso"] is string mensagemSucesso)
+{
+    <div class="alert alert-success border-start border-success border-4 rounded-3" role="alert">
+        @mensagemSucesso
+    </div>
+}
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-primary border-start border-primary border-2 rounded-3" role="alert">
+        Nenhuma categoria cadastrada.
+    </div>
+}
+else
+{
+
+    var cores = new Dictionary<string, string>
+    {
+        { "Vermelho", "#FF0000" },
+        { "Laranja", "#FF7F00" },
+        { "Amarelo", "#FFFF00" },
+        { "Verde", "#00FF00" },
+        { "Azul", "#0000FF" },
+        { "Violeta", "#9400D3" },
+        { "Rosa", "#FF69B4" }
+    };
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+        @foreach (var categoria in Model)
+        {
+            var corHex = cores.ContainsKey(categoria.Cor) ? cores[categoria.Cor] : "#6c757d";
+
+            <div class="col">
+                <div class="card h-100 shadow-sm border-0" style="transition: all 0.3s ease;">
+                    <div class="card-header border-0" style="background-color: @corHex; height: 8px;"></div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title mb-0">@categoria.Nome</h5>
+                            <span class="badge rounded-pill" style="background-color: @corHex; color: #fff;">
+                                #@categoria.Id
+                            </span>
+                        </div>
+                        <div class="d-flex align-items-center mt-3">
+                            <div class="rounded-circle me-2"
+                                 style="width: 24px; height: 24px; background-color: @corHex; border: 2px solid #fff; box-shadow: 0 0 0 1px #dee2e6;">
+                            </div>
+                            <small class="text-muted bold">Cor: @categoria.Cor</small>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-0 pt-0 pb-3">
+                        <div class="d-grid gap-2 d-md-flex">
+                            <a class="btn btn-primary btn-sm flex-fill" asp-action="Editar"
+                               asp-route-id="@categoria.Id">Editar</a>
+                            <a class="btn btn-outline-danger btn-sm flex-fill" asp-action="Excluir"
+                               asp-route-id="@categoria.Id">Excluir</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+<style>
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, .15) !important;
+    }
+</style>

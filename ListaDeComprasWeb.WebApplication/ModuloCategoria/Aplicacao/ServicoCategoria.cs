@@ -24,12 +24,12 @@ public class ServicoCategoria
 
         repositorioCategoria.Cadastrar(novaCategoria);
 
-        return Result.Ok();
+        return Result.Ok().WithSuccess("Categoria cadastrada com sucesso");
     }
 
     public Result Editar(EditarCategoriaDto dto)
     {
-        if (ExisteCategoriaComNome(dto.Nome))
+        if (ExisteCategoriaComNome(dto.Nome, dto.Id))
         {
             return Falha("Nome", "Já existe uma categoria com esse nome");
         }
@@ -41,7 +41,7 @@ public class ServicoCategoria
         if (!conseguiuEditar)
             return Result.Fail("Categoria não encontrada.");
 
-        return Result.Ok();
+        return Result.Ok().WithSuccess("Categoria editada com sucesso");
     }
 
     public Result Excluir(string id)
@@ -53,7 +53,7 @@ public class ServicoCategoria
 
         repositorioCategoria.Excluir(id);
 
-        return Result.Ok();
+        return Result.Ok().WithSuccess("Categoria excluida com sucesso");
     }
 
     public List<ListarCategoriasDtos> SelecionarTodos()

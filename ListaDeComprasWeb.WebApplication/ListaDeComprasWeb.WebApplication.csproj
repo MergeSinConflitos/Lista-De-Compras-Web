@@ -24,6 +24,7 @@
     <Folder Include="ModuloCategoria\" />
     <Folder Include="ModuloCategoria\Aplicacao\" />
     <Folder Include="ModuloCategoria\Apresentacao\" />
+    <Folder Include="ModuloCategoria\Apresentacao\Views\" />
     <Folder Include="ModuloCategoria\Dominio\" />
     <Folder Include="ModuloCategoria\Infra\" />
   </ItemGroup>

@@ -56,6 +56,7 @@ public class CategoriaController : Controller
             return View(cadastrarVm);
         }
 
+        TempData.AddSuccessMessage(resultado);
         return RedirectToAction(nameof(Listar));
     }
 
@@ -95,6 +96,7 @@ public class CategoriaController : Controller
             return View(editarVm);
         }
 
+        TempData.AddSuccessMessage(resultado);
         return RedirectToAction(nameof(Listar));
     }
 
@@ -124,7 +126,10 @@ public class CategoriaController : Controller
 
         if (resultado.IsFailed)
             TempData.AddErrorMessage(resultado);
-
+        else
+        {
+            TempData.AddSuccessMessage(resultado);
+        }
         return RedirectToAction(nameof(Listar));
     }
 }
