@@ -54,7 +54,7 @@ public class Produto : EntidadeBase<Produto>
             erros.Add("Selecione uma unidade de medida valida");
         }
 
-        if (Preco < 0)
+        if (Preco < 1)
         {
             erros.Add("Informe um preço valido");
         }

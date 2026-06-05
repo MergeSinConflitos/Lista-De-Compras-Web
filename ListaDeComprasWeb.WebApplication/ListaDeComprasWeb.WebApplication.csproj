@@ -28,6 +28,7 @@
     <Folder Include="ModuloCategoria\Dominio\" />
     <Folder Include="ModuloCategoria\Infra\" />
     <Folder Include="ModuloProduto\" />
+    <Folder Include="ModuloProduto\Aplicacao\" />
     <Folder Include="ModuloProduto\Apresentacao\" />
     <Folder Include="ModuloProduto\Dominio\" />
     <Folder Include="ModuloProduto\Infra\" />
