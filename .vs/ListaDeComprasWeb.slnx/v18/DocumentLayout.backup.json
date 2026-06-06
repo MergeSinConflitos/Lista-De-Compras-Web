@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\igorm\\OneDrive\\Desktop\\Academia Progamador\\Lista De Compras Web\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{49692128-3E1B-F86F-52BF-62E2C25C87E7}|ListaDeComprasWeb.WebApplication\\ListaDeComprasWeb.WebApplication.csproj|c:\\users\\igorm\\onedrive\\desktop\\academia progamador\\lista de compras web\\listadecomprasweb.webapplication\\modulocategoria\\apresentacao\\categoriacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{49692128-3E1B-F86F-52BF-62E2C25C87E7}|ListaDeComprasWeb.WebApplication\\ListaDeComprasWeb.WebApplication.csproj|solutionrelative:listadecomprasweb.webapplication\\modulocategoria\\apresentacao\\categoriacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CategoriaController.cs",
+              "DocumentMoniker": "C:\\Users\\igorm\\OneDrive\\Desktop\\Academia Progamador\\Lista De Compras Web\\ListaDeComprasWeb.WebApplication\\ModuloCategoria\\Apresentacao\\CategoriaController.cs",
+              "RelativeDocumentMoniker": "ListaDeComprasWeb.WebApplication\\ModuloCategoria\\Apresentacao\\CategoriaController.cs",
+              "ToolTip": "C:\\Users\\igorm\\OneDrive\\Desktop\\Academia Progamador\\Lista De Compras Web\\ListaDeComprasWeb.WebApplication\\ModuloCategoria\\Apresentacao\\CategoriaController.cs",
+              "RelativeToolTip": "ListaDeComprasWeb.WebApplication\\ModuloCategoria\\Apresentacao\\CategoriaController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-06T00:48:25.157Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

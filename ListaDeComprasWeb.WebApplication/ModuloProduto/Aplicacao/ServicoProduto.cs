@@ -56,14 +56,14 @@ public class ServicoProduto
             return Falha("Nome", "Já existe um produto com esse nome na categoria");
         }
 
-        Produto novoProduto = new Produto(
+        Produto ProdutoAtualizado = new Produto(
             dto.Nome,
             dto.Unidade,
             dto.Preco,
             categoria!
         );
 
-        repositorioProduto.Cadastrar(novoProduto);
+        repositorioProduto.Editar(dto.Id, ProdutoAtualizado);
 
         return Result.Ok().WithSuccess("Produto editado com sucesso");
     }
@@ -109,6 +109,7 @@ public class ServicoProduto
               produto.Id,
               produto.Nome,
               produto.Unidade,
+              produto.Preco,
               produto.Categoria.Id,
               produto.Categoria.Nome
           );

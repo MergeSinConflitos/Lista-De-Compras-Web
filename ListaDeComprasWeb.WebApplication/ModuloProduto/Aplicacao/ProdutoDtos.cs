@@ -34,6 +34,7 @@ public record DetalhesProdutoDto(
     string Id,
     string Nome,
     string Unidade,
+    decimal Preco,
     string CategoriaId,
     string CategoriaNome
 );

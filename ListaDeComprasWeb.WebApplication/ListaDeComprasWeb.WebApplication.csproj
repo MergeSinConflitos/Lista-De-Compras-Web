@@ -30,6 +30,7 @@
     <Folder Include="ModuloProduto\" />
     <Folder Include="ModuloProduto\Aplicacao\" />
     <Folder Include="ModuloProduto\Apresentacao\" />
+    <Folder Include="ModuloProduto\Apresentacao\Views\" />
     <Folder Include="ModuloProduto\Dominio\" />
     <Folder Include="ModuloProduto\Infra\" />
   </ItemGroup>

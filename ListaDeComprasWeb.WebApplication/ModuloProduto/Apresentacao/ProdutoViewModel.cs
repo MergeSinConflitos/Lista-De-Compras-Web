@@ -28,6 +28,9 @@ public record CadastrarProdutoViewModel(
     [Range(1,int.MaxValue,ErrorMessage ="O preço deve ser maior que 0")]
     decimal Preco,
 
+    [Required(ErrorMessage ="Selecione uma categoria valida")]
+    string CategoriaId,
+
     [ValidateNever]
     List<OpcaoCategoriaViewModel> Categorias
 
@@ -45,6 +48,10 @@ public record EditarProdutoViewModel(
 
     [Range(1,int.MaxValue,ErrorMessage ="O preço deve ser maior que 0")]
     decimal Preco,
+
+    [Required(ErrorMessage ="Selecione uma categoria valida")]
+    string CategoriaId,
+
 
     [ValidateNever]
     List<OpcaoCategoriaViewModel> Categorias
