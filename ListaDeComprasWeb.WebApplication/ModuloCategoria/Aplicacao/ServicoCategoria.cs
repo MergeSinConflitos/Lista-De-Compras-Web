@@ -1,16 +1,19 @@
 using System;
 using FluentResults;
 using ListaDeComprasWeb.WebApplication.ModuloCategoria.Dominio;
+using ListaDeComprasWeb.WebApplication.ModuloProduto.Dominio;
 
 namespace ListaDeComprasWeb.WebApplication.ModuloCategoria.Aplicacao;
 
 public class ServicoCategoria
 {
     private readonly IRepositorioCategoria repositorioCategoria;
+    private readonly IRepositorioProduto repositorioProduto;
 
-    public ServicoCategoria(IRepositorioCategoria repositorioCategoria)
+    public ServicoCategoria(IRepositorioCategoria repositorioCategoria, IRepositorioProduto repositorioProduto)
     {
         this.repositorioCategoria = repositorioCategoria;
+        this.repositorioProduto = repositorioProduto;
     }
 
     public Result Cadastrar(CadastrarCategoriaDto dto)
@@ -51,6 +54,11 @@ public class ServicoCategoria
         if (categoria == null)
             return Result.Fail("Categoria não encontrada.");
 
+        if (ExisteProdutoNaCategoria(id))
+        {
+            return Result.Fail("Essa categoria não pode ser excluida,pois possui produtos vinculados a ela");
+        }
+
         repositorioCategoria.Excluir(id);
 
         return Result.Ok().WithSuccess("Categoria excluida com sucesso");
@@ -81,6 +89,13 @@ public class ServicoCategoria
         List<Categoria> categorias = repositorioCategoria.SelecionarTodos();
 
         return categorias.Any(c => c.Id != idIgnorado && string.Equals(c.Nome, nome, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private bool ExisteProdutoNaCategoria(string id)
+    {
+        List<Produto> produtos = repositorioProduto.SelecionarTodos();
+
+        return produtos.Any(p => p.Categoria.Id == id);
     }
 
     private static Result Falha(string campo, string mensagem)
