@@ -27,6 +27,11 @@
     <Folder Include="ModuloCategoria\Apresentacao\Views\" />
     <Folder Include="ModuloCategoria\Dominio\" />
     <Folder Include="ModuloCategoria\Infra\" />
+    <Folder Include="ModuloListadeCompras\" />
+    <Folder Include="ModuloListadeCompras\Apresentacao\" />
+    <Folder Include="ModuloListadeCompras\Apresentacao\Views\" />
+    <Folder Include="ModuloListadeCompras\Dominio\" />
+    <Folder Include="ModuloListadeCompras\Infra\" />
     <Folder Include="ModuloProduto\" />
     <Folder Include="ModuloProduto\Aplicacao\" />
     <Folder Include="ModuloProduto\Apresentacao\" />
