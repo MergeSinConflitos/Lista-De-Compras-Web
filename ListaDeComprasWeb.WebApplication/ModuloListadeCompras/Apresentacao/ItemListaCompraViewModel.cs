@@ -4,7 +4,7 @@ using ListaDeComprasWeb.WebApplication.ModuloProduto.Dominio;
 
 namespace ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Apresentacao;
 
-public record ListarItensViewModel(
+public record ListarItemViewModel(
     string Id,
     string NomeProduto,
     string NomeCategoria,
@@ -31,13 +31,13 @@ public record RemoverItemViewModel(
     string ListaId     //  para volver a la lista correcta después de remover
 );
 
-public record DetalhesListaComprasViewModel(
+public record EditarItemViewModel(
     string Id,
-    string Nome,
-    DateTime DataCriacao,
-    StatusListaCompras Status,
-    int TotalItens,
-    decimal TotalGasto,
-    List<ListarItensViewModel> Itens  
-);
+    string NomeProduto,
+    int Quantidade,
+    decimal Preco,
+    string ListaId,   //  para volver a la lista correcta después de editar
 
+    [Range(1, int.MaxValue, ErrorMessage = "A quantidade deve ser maior que zero.")]
+    int QuantidadeEditada
+);
