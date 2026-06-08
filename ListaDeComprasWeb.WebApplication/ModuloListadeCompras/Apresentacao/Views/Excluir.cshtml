@@ -1,0 +1,22 @@
+﻿@using ListaDeComprasWeb.WebApplication.ModuloListadeCompras.Apresentacao
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Exclusão de Lista de Compras";
+}
+
+@model ExcluirListaComprasViewModel;
+
+<div class="alert alert-danger mx-auto" style="max-width: 500px;">
+    <h4 class="alert-heading">Atenção!</h4>
+    <p>Tem certeza que deseja excluir a lista <strong>"@Model.Nome"</strong>?</p>
+    <hr>
+    <p class="mb-0 text-muted small">
+        Nota: Listas com itens vinculados não podem ser removidas.
+    </p>
+    
+    <form asp-action="ConfirmarExclusao" method="post" class="mt-4">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Sim, Excluir</button>
+        <a asp-action="Listar" class="btn btn-secondary">Não, Voltar</a>
+    </form>
+</div>
