@@ -1,0 +1,123 @@
+﻿@using ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Apresentacao
+@using ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Dominio
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Detalhes da Lista";
+}
+
+@model DetalhesListaComprasViewModel;
+
+@if (TempData["MensagemErro"] is string mensagemErro)
+{
+    <div class="alert alert-danger border-start border-danger border-4 rounded-3" role="alert">
+        @mensagemErro
+    </div>
+}
+
+@if (TempData["MensagemSucesso"] is string mensagemSucesso)
+{
+    <div class="alert alert-success border-start border-success border-4 rounded-3" role="alert">
+        @mensagemSucesso
+    </div>
+}
+
+@* cabeçalho da lista *@
+<div class="card border-primary-subtle shadow-sm mb-4">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h4 class="fw-bold text-primary mb-1">@Model.Nome</h4>
+                <small class="text-muted">Criada em @Model.DataCriacao.ToShortDateString()</small>
+            </div>
+            <span class="badge @(Model.Status == StatusListaCompras.Aberta ? "bg-success" : "bg-secondary") rounded-pill fs-6">
+                @Model.Status
+            </span>
+        </div>
+
+        <hr />
+
+        <div class="row text-center">
+            <div class="col">
+                <div class="fw-bold text-primary fs-4">@Model.TotalItens</div>
+                <small class="text-muted">Total de Itens</small>
+            </div>
+            <div class="col">
+                <div class="fw-bold text-success fs-4">@Model.TotalGasto.ToString("C2")</div>
+                <small class="text-muted">Total Estimado</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* botoes *@
+<div class="d-flex gap-2 mb-3">
+    <a class="btn btn-outline-primary rounded-pill px-4" asp-action="Listar">
+        Voltar
+    </a>
+    @if (Model.Status == StatusListaCompras.Aberta)
+    {
+        <a class="btn btn-primary rounded-pill px-4"
+           asp-controller="ItemListaCompras"
+           asp-action="Adicionar"
+           asp-route-listaId="@Model.Id">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-plus-lg me-1" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+            </svg>
+            Adicionar Item
+        </a>
+    }
+</div>
+
+@* tabela de itens *@
+@if (Model.Itens.Count == 0)
+{
+    <div class="alert alert-primary border-start border-primary border-2 rounded-3" role="alert">
+        Nenhum item adicionado a esta lista.
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle bg-white">
+            <thead class="table-primary">
+                <tr>
+                    <th>Produto</th>
+                    <th>Categoria</th>
+                    <th>Quantidade</th>
+                    <th>Preço Estimado</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ListarItensViewModel item in Model.Itens)
+                {
+                    <tr>
+                        <td>@item.NomeProduto</td>
+                        <td>@item.NomeCategoria</td>
+                        <td>@item.Quantidade</td>
+                        <td>@item.Preco.ToString("C2")</td>
+                        <td>
+                            @if (Model.Status == StatusListaCompras.Aberta)
+                            {
+                                <a class="btn btn-outline-danger btn-sm rounded-pill px-3"
+                                   asp-controller="ItemListaCompras"
+                                   asp-action="Remover"
+                                   asp-route-listaId="@Model.Id"
+                                   asp-route-itemId="@item.Id">Remover</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot class="table-light fw-bold">
+                <tr>
+                    <td colspan="3" class="text-end">Total Estimado:</td>
+                    <td class="text-success">@Model.TotalGasto.ToString("C2")</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+}

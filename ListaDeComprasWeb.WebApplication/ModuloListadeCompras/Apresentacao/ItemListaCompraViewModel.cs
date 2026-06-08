@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Dominio;
 using ListaDeComprasWeb.WebApplication.ModuloProduto.Dominio;
 
 namespace ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Apresentacao;
@@ -30,4 +31,13 @@ public record RemoverItemViewModel(
     string ListaId     //  para volver a la lista correcta después de remover
 );
 
+public record DetalhesListaComprasViewModel(
+    string Id,
+    string Nome,
+    DateTime DataCriacao,
+    StatusListaCompras Status,
+    int TotalItens,
+    decimal TotalGasto,
+    List<ListarItensViewModel> Itens  
+);
 

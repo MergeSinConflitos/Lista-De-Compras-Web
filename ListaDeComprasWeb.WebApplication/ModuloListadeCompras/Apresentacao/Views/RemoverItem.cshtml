@@ -1,0 +1,43 @@
+﻿@using ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Apresentacao
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Remover Item";
+}
+
+@model RemoverItemViewModel;
+
+<form class="card border-primary-subtle shadow-sm mx-auto p-4" style="max-width: 620px;"
+      asp-controller="ItemListaCompras" asp-action="Remover" method="post">
+
+    <h4 class="text-danger mb-4">Remover Item da Lista</h4>
+
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="ListaId" />
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold text-primary text-uppercase small">Produto</label>
+        <input asp-for="NomeProduto" type="text" class="form-control" disabled>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold text-primary text-uppercase small">Quantidade</label>
+        <input asp-for="Quantidade" type="number" class="form-control" disabled>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold text-primary text-uppercase small">Preço Estimado</label>
+        <input type="text" class="form-control" value="@Model.Preco.ToString("C2")" disabled>
+    </div>
+
+    <div class="alert alert-warning rounded-3" role="alert">
+         Tem certeza que deseja remover este item da lista?
+    </div>
+
+    <div class="d-flex justify-content-end gap-2 mt-4">
+        <a class="btn btn-outline-primary rounded-pill px-4"
+           asp-controller="ListaCompras"
+           asp-action="Detalhes"
+           asp-route-id="@Model.ListaId">Voltar</a>
+        <button class="btn btn-danger rounded-pill px-4" type="submit">Confirmar Remoção</button>
+    </div>
+</form>

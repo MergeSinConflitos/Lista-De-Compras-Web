@@ -27,7 +27,6 @@
     <Folder Include="ModuloCategoria\Apresentacao\Views\" />
     <Folder Include="ModuloCategoria\Dominio\" />
     <Folder Include="ModuloCategoria\Infra\" />
-    <Folder Include="ModuloListaDeCompras\Apresentacao\Views\" />
     <Folder Include="ModuloListaDeCompras\Dominio\" />
     <Folder Include="ModuloListaDeCompras\Infra\" />
     <Folder Include="ModuloProduto\" />
