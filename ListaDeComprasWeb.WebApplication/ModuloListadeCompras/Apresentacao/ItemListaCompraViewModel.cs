@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using ListaDeComprasWeb.WebApplication.ModuloProduto.Dominio;
-namespace ListaDeComprasWeb.WebApplication.ModuloListadeCompras.Apresentacao;
+
+namespace ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Apresentacao;
 
 public record ListarItensViewModel(
     string Id,
@@ -28,4 +29,5 @@ public record RemoverItemViewModel(
     decimal Preco,
     string ListaId     //  para volver a la lista correcta después de remover
 );
+
 

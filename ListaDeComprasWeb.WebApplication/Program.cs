@@ -14,7 +14,7 @@ var app = builder.Build();
 
 // Configuração de Middlewares
 app.UseStaticFiles();
-
+    
 app.UseRouting();
 app.MapDefaultControllerRoute();
 

@@ -1,5 +1,6 @@
 using System;
 using ListaDeComprasWeb.WebApplication.ModuloCategoria.Apresentacao;
+using ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Apresentacao;
 using ListaDeComprasWeb.WebApplication.ModuloProduto.Apresentacao;
 
 namespace ListaDeComprasWeb.WebApplication.Compartilhado.Apresentacao;
@@ -24,6 +25,7 @@ public static class InjecaoDependencia
         {
             config.AddProfile<CategoriaProfile>();
             config.AddProfile<ProdutoProfile>();
+            config.AddProfile<ListaDeComprasProfile>();
 
         });
     }

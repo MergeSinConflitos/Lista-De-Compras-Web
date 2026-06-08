@@ -1,6 +1,6 @@
-using ListaDeComprasWeb.WebApplication.ModuloListadeCompras.Dominio;
+using ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Dominio;
 
-namespace ListaDeComprasWeb.WebApplication.ModuloListadeCompras.Aplicacao;
+namespace ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Aplicacao;
 
 public record ListarListasComprasDto(
     string Id,

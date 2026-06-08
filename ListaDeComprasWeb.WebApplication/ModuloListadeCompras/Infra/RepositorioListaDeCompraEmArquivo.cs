@@ -1,8 +1,9 @@
 using System;
 using ListaDeComprasWeb.WebApplication.Compartilhado.Infra.Arquivos;
-using ListaDeComprasWeb.WebApplication.ModuloListadeCompras.Dominio;
 
-namespace ListaDeComprasWeb.WebApplication.ModuloListadeCompras.Infra;
+using ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Dominio;
+
+namespace ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Infra;
 
 public class RepositorioListaDeCompraEmArquivo : RepositorioBaseEmArquivo<ListaDeCompra>, IRepositorioListaDeCompra
 {

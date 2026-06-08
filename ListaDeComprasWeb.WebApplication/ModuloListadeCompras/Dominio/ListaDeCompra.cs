@@ -3,7 +3,7 @@ using ListaDeComprasWeb.WebApplication.Compartilhado.Dominio;
 using ListaDeComprasWeb.WebApplication.ModuloItemListaCompras.Dominio;
 using ListaDeComprasWeb.WebApplication.ModuloProduto.Dominio;
 
-namespace ListaDeComprasWeb.WebApplication.ModuloListadeCompras.Dominio;
+namespace ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Dominio;
 
 public class ListaDeCompra : EntidadeBase<ListaDeCompra>
 {   

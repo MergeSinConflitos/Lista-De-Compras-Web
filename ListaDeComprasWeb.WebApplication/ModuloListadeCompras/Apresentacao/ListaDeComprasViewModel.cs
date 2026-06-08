@@ -1,7 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-using ListaDeComprasWeb.WebApplication.ModuloListadeCompras.Dominio;
+using ListaDeComprasWeb.WebApplication.ModuloItemListaCompras.Dominio;
+using ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Dominio;
 
-namespace ListaDeComprasWeb.WebApplication.ModuloListadeCompras.Apresentacao;
+namespace ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Apresentacao;
 
 public record ListarListasDeComprasViewModel(
     string Id,
@@ -12,13 +13,13 @@ public record ListarListasDeComprasViewModel(
     decimal TotalGasto
 );
 
-public record CadastrarListaComprasViewModel(
+public record CadastrarListaDeComprasViewModel(
     [Required(ErrorMessage = "O campo \"Nome\" deve ser preenchido.")]
     [StringLength(100, MinimumLength = 3, ErrorMessage = "O campo \"Nome\" deve conter entre 3 e 100 caracteres.")]
     string Nome
 );
 
-public record EditarListaComprasViewModel(
+public record EditarListaDeComprasViewModel(
     string Id,
 
     [Required(ErrorMessage = "O campo \"Nome\" deve ser preenchido.")]
@@ -28,9 +29,17 @@ public record EditarListaComprasViewModel(
     StatusListaCompras Status
 );
 
-public record ExcluirListaComprasViewModel(
+public record ExcluirListaDeComprasViewModel(
     string Id,
     string Nome,
     DateTime DataCriacao,
     StatusListaCompras Status
+);
+
+public record DetalhesListaComprasViewModel(
+    string Id,
+    string Nome,
+    DateTime DataCriacao,
+    StatusListaCompras Status,
+    List<ItemListaCompras> Itens
 );
