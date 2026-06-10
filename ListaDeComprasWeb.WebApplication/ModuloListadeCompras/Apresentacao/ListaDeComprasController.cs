@@ -2,6 +2,8 @@ using AutoMapper;
 using FluentResults;
 using ListaDeComprasWeb.WebApplication.Compartilhado.Apresentacao.Extensions;
 using ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Aplicacao;
+using ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Dominio;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Apresentacao;
@@ -127,16 +129,23 @@ public class ListaDeComprasController : Controller
     [HttpGet]
     public ActionResult Detalhes(string id)
     {
-        Result<DetalhesListaComprasDto> resultado = servicoListaCompras.SelecionarPorId(id);
+        Result<DetalhesListaComprasDto> resultadoDetalhes = servicoListaCompras.SelecionarPorId(id);
 
-        if (resultado.IsFailed)
+        if (resultadoDetalhes.IsFailed)
         {
-            TempData.AddErrorMessage(resultado);
+            TempData.AddErrorMessage(resultadoDetalhes);
             return RedirectToAction(nameof(Listar));
         }
 
-        DetalhesListaComprasViewModel detalhesVm = mapeador.Map<DetalhesListaComprasViewModel>(resultado.Value);
+        DetalhesListaComprasDto detalhes = resultadoDetalhes.Value;
 
-        return View(detalhesVm);
+        Result resultado = servicoListaCompras.Editar(
+            new EditarListaComprasDto(detalhes.Id, detalhes.Nome, detalhes.Status)
+        );
+
+       if (resultado.IsFailed)
+            TempData.AddErrorMessage(resultado);
+
+        return RedirectToAction(nameof(Listar));
     }
 }

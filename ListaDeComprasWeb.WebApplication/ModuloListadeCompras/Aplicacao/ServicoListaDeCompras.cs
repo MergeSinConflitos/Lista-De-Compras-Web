@@ -1,27 +1,31 @@
 using ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Dominio;
 using FluentResults;
+using ListaDeComprasWeb.WebApplication.ModuloItemLista.Dominio;
+using Microsoft.AspNetCore.Mvc;
 
 
 namespace ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Aplicacao;
 
 
-public class ServicoListaDeCompras
+public class ServicoListaDeCompras : Controller
 {
     private readonly IRepositorioListaDeCompra repositorioListaDeCompra;
+    private readonly IRepositorioItemLista repositorioItemListaCompra;    
 
-    public ServicoListaDeCompras(IRepositorioListaDeCompra repositorioListaDeCompra)
+    public ServicoListaDeCompras(IRepositorioListaDeCompra repositorioListaDeCompra, IRepositorioItemLista repositorioItemListaCompra)
     {
         this.repositorioListaDeCompra = repositorioListaDeCompra;
+        this.repositorioItemListaCompra = repositorioItemListaCompra;
     }
 
     public Result Cadastrar(CadastrarListaComprasDto dto)
     {
-        ListaDeCompra novaLista = new ListaDeCompra(dto.Nome);
+        ListaDeCompras novaLista = new ListaDeCompras(dto.Nome, DateTime.Now);
 
-        List<string> erros = novaLista.Validar();
+        Result resultadoValidacao = ValidarEntidade(novaLista);
 
-        if (erros.Count > 0)
-            return Result.Fail(erros);
+        if (resultadoValidacao.IsFailed)
+            return resultadoValidacao;
 
         repositorioListaDeCompra.Cadastrar(novaLista);
 
@@ -30,30 +34,34 @@ public class ServicoListaDeCompras
 
     public Result Editar(EditarListaComprasDto dto)
     {
-        ListaDeCompra listaAtualizada = new ListaDeCompra(dto.Nome);
+        ListaDeCompras? lista = repositorioListaDeCompra.SelecionarPorId(dto.Id);
 
-        List<string> erros = listaAtualizada.Validar();
-
-        if (erros.Count > 0)
-            return Result.Fail(erros);
-
-        bool conseguiuEditar = repositorioListaDeCompra.Editar(dto.Id, listaAtualizada);
-
-        if (!conseguiuEditar)
+        if (lista == null)
             return Result.Fail("Lista não encontrada.");
+
+        ListaDeCompras listaAtualizada = new ListaDeCompras(dto.Nome, lista.DataCriacao, dto.Status);
+       
+        Result resultadoValidacao = ValidarEntidade(listaAtualizada);
+
+        if (resultadoValidacao.IsFailed)
+            return resultadoValidacao;
+
+        repositorioListaDeCompra.Editar(dto.Id, listaAtualizada);
 
         return Result.Ok().WithSuccess("Lista editada com sucesso!");
     }
 
     public Result Excluir(string id)
     {
-        ListaDeCompra? lista = repositorioListaDeCompra.SelecionarPorId(id);
+        ListaDeCompras? lista = repositorioListaDeCompra.SelecionarPorId(id);
 
         if (lista == null)
             return Result.Fail("Lista não encontrada.");
 
-        if (lista.Itens.Count > 0)
-            return Result.Fail("Não é possível excluir uma lista que possui itens vinculados.");
+        List<ItemListaCompras> itensDaLista = SelecionarItensDaLista(id);
+
+        foreach (ItemListaCompras item in itensDaLista)
+            repositorioItemListaCompra.Excluir(item.Id);
 
         repositorioListaDeCompra.Excluir(id);
 
@@ -62,29 +70,27 @@ public class ServicoListaDeCompras
 
     public List<ListarListasComprasDto> SelecionarTodos()
     {
-        List<ListaDeCompra> listas = repositorioListaDeCompra.SelecionarTodos();
+        return repositorioListaDeCompra
+            .SelecionarTodos()
+            .Select(l =>
+            {
+                List<ItemListaCompras> itens = SelecionarItensDaLista(l.Id);
 
-        List<ListarListasComprasDto> dtos = new List<ListarListasComprasDto>();
-
-        foreach (ListaDeCompra l in listas)
-        {
-            ListarListasComprasDto dto = new ListarListasComprasDto(
-                l.Id,
-                l.Nome,
-                l.DataCriacao,
-                l.Status,
-                l.Itens.Count,
-                l.TotalGasto
-            );
-            dtos.Add(dto);
-        }
-
-        return dtos;
+                return new ListarListasComprasDto(
+                    l.Id,
+                    l.Nome,
+                    l.DataCriacao,
+                    l.Status,
+                    itens.Count,
+                    itens.Sum(i => i.CalcularSubtotal())
+                );
+            })
+            .ToList();
     }
 
     public Result<DetalhesListaComprasDto> SelecionarPorId(string id)
     {
-        ListaDeCompra? lista = repositorioListaDeCompra.SelecionarPorId(id);
+        ListaDeCompras? lista = repositorioListaDeCompra.SelecionarPorId(id);
 
         if (lista == null)
             return Result.Fail("Lista não encontrada.");
@@ -103,5 +109,20 @@ public class ServicoListaDeCompras
     {
         IError erro = new Error(mensagem).WithMetadata("Campo", campo);
         return Result.Fail(erro);
+    }
+
+    private List<ItemListaCompras> SelecionarItensDaLista(string listaId)
+    {
+        return repositorioItemListaCompra.Filtrar(i => i.ListaCompras.Id == listaId);
+    }
+
+    private static Result ValidarEntidade(ListaDeCompras lista)
+    {
+        List<string> erros = lista.Validar();
+
+        if (erros.Count == 0)
+            return Result.Ok();
+        
+        return Result.Fail(new Error(erros.First()).WithMetadata("Campo", string.Empty));
     }
 }

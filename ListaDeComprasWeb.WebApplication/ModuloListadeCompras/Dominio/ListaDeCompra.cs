@@ -1,15 +1,14 @@
-
 using ListaDeComprasWeb.WebApplication.Compartilhado.Dominio;
-using ListaDeComprasWeb.WebApplication.ModuloItemListaCompras.Dominio;
+using ListaDeComprasWeb.WebApplication.ModuloItemLista.Dominio;
 using ListaDeComprasWeb.WebApplication.ModuloProduto.Dominio;
 
 namespace ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Dominio;
 
-public class ListaDeCompra : EntidadeBase<ListaDeCompra>
-{   
+public class ListaDeCompras : EntidadeBase<ListaDeCompras>
+{
     public string Nome { get; set; } = string.Empty;
     public DateTime DataCriacao { get; set; }
-    public StatusListaCompras Status { get; set; }
+    public StatusListaCompras Status { get; set; } = StatusListaCompras.Aberta;
     public List<ItemListaCompras> Itens { get; set; } = new List<ItemListaCompras>();
 
     public decimal TotalGasto
@@ -18,33 +17,23 @@ public class ListaDeCompra : EntidadeBase<ListaDeCompra>
         {
             decimal totalGasto = 0;
             foreach (ItemListaCompras item in Itens)
-                totalGasto += item.Preco;
+                totalGasto += item.CalcularSubtotal(); 
             return totalGasto;
         }
     }
 
-    public ListaDeCompra() { }
+    public ListaDeCompras() { }
 
-    public ListaDeCompra(string nome)
+    public ListaDeCompras(string nome, DateTime dataCriacao, StatusListaCompras status = StatusListaCompras.Aberta)
     {
         Nome = nome;
-        DataCriacao = DateTime.Now;
-        Abrir();
-    }
+        DataCriacao = dataCriacao;
+        Status = status;
+    }   
 
-    public void Abrir()
+    public void AdicionarItem(Produto produto, decimal quantidade) 
     {
-        Status = StatusListaCompras.Aberta;
-    }
-
-    public void Concluir()
-    {
-        Status = StatusListaCompras.Concluida;
-    }
-
-    public void AdicionarItem(Produto produto, int quantidade)
-    {
-        ItemListaCompras item = new ItemListaCompras(produto, quantidade);
+        ItemListaCompras item = new ItemListaCompras(this, produto, quantidade);
         Itens.Add(item);
     }
 
@@ -61,9 +50,10 @@ public class ListaDeCompra : EntidadeBase<ListaDeCompra>
         return false;
     }
 
-    public override void Atualizar(ListaDeCompra listaAtualizada)
+    public override void Atualizar(ListaDeCompras listaAtualizada)
     {
         Nome = listaAtualizada.Nome;
+        Status = listaAtualizada.Status;
     }
 
     public override List<string> Validar()
@@ -78,11 +68,3 @@ public class ListaDeCompra : EntidadeBase<ListaDeCompra>
         return erros;
     }
 }
-
-public enum StatusListaCompras
-{
-    Aberta,
-    Concluida
-}
-    
-

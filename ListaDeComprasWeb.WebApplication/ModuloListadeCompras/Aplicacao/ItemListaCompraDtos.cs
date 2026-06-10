@@ -1,2 +1,0 @@
-
-namespace ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Aplicacao;

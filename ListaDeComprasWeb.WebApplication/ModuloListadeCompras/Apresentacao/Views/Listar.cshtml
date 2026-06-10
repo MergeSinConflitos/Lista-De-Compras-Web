@@ -6,7 +6,7 @@
     ViewBag.Titulo = "Listagem de Listas de Compras";
 }
 
-@model IEnumerable<ListarListasDeComprasViewModel>
+@model List<ListarListasDeComprasViewModel>
 
 <a class="btn btn-outline-primary rounded-pill px-4 mb-3" asp-action="Cadastrar">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg me-1"
@@ -41,8 +41,8 @@
 else
 {
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        @foreach (var lista in Model)
-        {
+        @foreach (ListarListasDeComprasViewModel lista in Model)
+        {  
             var statusCor = lista.Status == StatusListaCompras.Aberta ? "#198754" : "#6c757d";
             var statusTexto = lista.Status == StatusListaCompras.Aberta ? "Aberta" : "Concluída";
             var statusBadge = lista.Status == StatusListaCompras.Aberta ? "bg-success" : "bg-secondary";
@@ -83,7 +83,7 @@ else
 
                     <div class="card-footer bg-transparent border-0 pt-0 pb-3">
                         <div class="d-grid gap-2 d-md-flex">
-                            <a class="btn btn-primary btn-sm flex-fill" asp-action="Detalhes"
+                            <a class="btn btn-primary btn-sm flex-fill" asp-controller="ItemLista" asp-action="Listar"
                                asp-route-id="@lista.Id">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
                                      class="bi bi-list-ul me-1" viewBox="0 0 16 16">

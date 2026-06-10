@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-
+using ListaDeComprasWeb.WebApplication.ModuloItemLista.Apresentacao;
 using ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Dominio;
 
 namespace ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Apresentacao;
@@ -36,12 +36,3 @@ public record ExcluirListaDeComprasViewModel(
     StatusListaCompras Status
 );
 
-public record DetalhesListaComprasViewModel(
-    string Id,
-    string Nome,
-    DateTime DataCriacao,
-    StatusListaCompras Status,
-    int TotalItens,        
-    decimal TotalGasto,  
-    List<ListarItemViewModel> Itens 
-);

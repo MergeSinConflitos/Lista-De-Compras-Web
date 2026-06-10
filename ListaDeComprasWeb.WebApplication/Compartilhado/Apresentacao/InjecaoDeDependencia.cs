@@ -2,7 +2,7 @@ using System;
 using ListaDeComprasWeb.WebApplication.ModuloCategoria.Apresentacao;
 using ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Apresentacao;
 using ListaDeComprasWeb.WebApplication.ModuloProduto.Apresentacao;
-
+using ListaDeComprasWeb.WebApplication.ModuloItemLista.Apresentacao;
 namespace ListaDeComprasWeb.WebApplication.Compartilhado.Apresentacao;
 
 public static class InjecaoDependencia
@@ -26,6 +26,7 @@ public static class InjecaoDependencia
             config.AddProfile<CategoriaProfile>();
             config.AddProfile<ProdutoProfile>();
             config.AddProfile<ListaDeComprasProfile>();
+            config.AddProfile<ItemListaProfile>();
 
         });
     }

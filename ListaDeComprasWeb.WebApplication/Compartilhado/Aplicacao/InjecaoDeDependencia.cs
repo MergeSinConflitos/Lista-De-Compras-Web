@@ -1,5 +1,6 @@
 using System;
 using ListaDeComprasWeb.WebApplication.ModuloCategoria.Aplicacao;
+using ListaDeComprasWeb.WebApplication.ModuloItemLista.Aplicacao;
 using ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Aplicacao;
 using ListaDeComprasWeb.WebApplication.ModuloProduto.Aplicacao;
 
@@ -12,6 +13,7 @@ public static class InjecaoDependencia
         services.AddScoped<ServicoCategoria>();
         services.AddScoped<ServicoProduto>();
         services.AddScoped<ServicoListaDeCompras>();
+        services.AddScoped<ServicoItemListaCompras>();
 
     }
 }

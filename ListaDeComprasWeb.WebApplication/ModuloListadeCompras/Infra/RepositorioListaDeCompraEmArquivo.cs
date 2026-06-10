@@ -5,13 +5,13 @@ using ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Dominio;
 
 namespace ListaDeComprasWeb.WebApplication.ModuloListaDeCompras.Infra;
 
-public class RepositorioListaDeCompraEmArquivo : RepositorioBaseEmArquivo<ListaDeCompra>, IRepositorioListaDeCompra
+public class RepositorioListaDeCompraEmArquivo : RepositorioBaseEmArquivo<ListaDeCompras>, IRepositorioListaDeCompra
 {
-     public RepositorioListaDeCompraEmArquivo(ContextoJson contexto) : base(contexto)
+    public RepositorioListaDeCompraEmArquivo(ContextoJson contexto) : base(contexto)
     {
     }
 
-    protected override List<ListaDeCompra> CarregarRegistros()
+    protected override List<ListaDeCompras> CarregarRegistros()
     {
         return contexto.ListaDeCompra;
     }
